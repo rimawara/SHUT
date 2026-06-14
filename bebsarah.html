@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Bebeb Sarah</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:Poppins,sans-serif;
+overflow:hidden;
+background:linear-gradient(135deg,#ffd6e8,#fff2a8,#e8d8ff);
+height:100vh;color:#444}
+.screen{
+position:absolute;inset:0;
+display:flex;flex-direction:column;
+justify-content:center;align-items:center;
+padding:24px;text-align:center;
+opacity:0;transform:translateY(30px);
+pointer-events:none;
+transition:all .4s ease}
+.screen.active{opacity:1;transform:translateY(0);pointer-events:auto}
+h1{font-family:"Baloo 2",cursive;color:#ff4f9a;font-size:clamp(2.5rem,7vw,5rem)}
+p{max-width:700px}
+.btn{
+margin-top:20px;padding:14px 24px;border:none;border-radius:999px;
+cursor:pointer;background:#fff;font-weight:600;
+box-shadow:0 10px 20px rgba(0,0,0,.12)}
+.calendar{
+background:#fff;border-radius:24px;padding:20px;margin:25px 0;
+box-shadow:0 12px 30px rgba(0,0,0,.12);width:220px}
+.month{background:#ff4f9a;color:#fff;padding:8px;border-radius:12px}
+.date{font-size:80px;font-weight:700;color:#ff4f9a}
+.music-btn{
+position:fixed;top:15px;right:15px;z-index:1000;
+border:none;border-radius:50%;width:55px;height:55px;
+background:#fff;font-size:22px;display:none;cursor:pointer}
+.card{
+background:rgba(255,255,255,.9);
+padding:28px;border-radius:24px;
+max-width:800px;box-shadow:0 15px 35px rgba(0,0,0,.12);
+line-height:1.8}
+.cake{font-size:120px;position:relative}
+.flame{
+position:absolute;top:-10px;left:50%;transform:translateX(-50%);
+font-size:36px;transition:.5s}
+.hidden{display:none}
+#surprise{margin-top:20px;font-size:1.2rem;opacity:0;transition:.4s}
+.balloon{
+position:fixed;bottom:-100px;font-size:2rem;
+animation:float linear infinite;pointer-events:none}
+@keyframes float{
+from{transform:translateY(0)}
+to{transform:translateY(-120vh)}
+}
+.confetti{
+position:fixed;width:10px;height:10px;top:-10px;
+animation:fall linear forwards}
+@keyframes fall{
+to{transform:translateY(110vh) rotate(720deg);opacity:0}
+}
+</style>
+</head>
+<body>
+
+<!-- ✏️ EDIT HERE - GANTI LAGU -->
+<audio id="bg-music" loop>
+<source src="https://res.cloudinary.com/dgbte9yit/video/upload/v1781408823/tikio.com1781404608_8Qynj2eclSRFgjLAQaSF_n4p6ya.m4a" type="audio/mpeg">
+</audio>
+
+<button id="musicBtn" class="music-btn">🎵</button>
+
+<div class="balloon" style="left:10%;animation-duration:12s">🎈</div>
+<div class="balloon" style="left:30%;animation-duration:15s">🎈</div>
+<div class="balloon" style="left:50%;animation-duration:13s">🎈</div>
+<div class="balloon" style="left:75%;animation-duration:16s">🎈</div>
+
+<section id="screen0" class="screen active">
+<h1>Tau gak hari ini hari apa? 🤔</h1>
+<div class="calendar">
+<div>Minggu</div>
+<div class="month">JUNI</div>
+<div class="date">14</div>
+<div>2026</div>
+</div>
+<button class="btn" onclick="goHero()">Cari tau yuk! 🎉</button>
+</section>
+
+<section id="screen1" class="screen">
+<h1>Happy Birthday, bebeb Sarah! 🎉</h1>
+<p>Tahniah ye sayang, semoga hari ni best banget!</p>
+<button class="btn" onclick="showScreen(2)">Tap untuk buka kado 🎁</button>
+</section>
+
+<section id="screen2" class="screen">
+<div class="card">
+<h2>💌 Untuk Bebeb Sarah</h2>
+
+<p id="typing">Hari ini hari spesial untuk bebeb Sarah. Semoga semua impian yang sedang dikejar dipermudahkan, rezeki makin luas, hati sentiasa tenang, dan hidup penuh moment best yang bikin senyum. Terima kasih sebab dah jadi orang yang comel, baik, dan membawa vibe positif ke sekeliling. Happy Birthday! 🥳💕</p>
+</div>
+<button class="btn" onclick="showScreen(3)">Lanjut ➜</button>
+</section>
+
+<section id="screen3" class="screen">
+<div class="cake">🎂<div id="flame" class="flame">🔥</div></div>
+<button class="btn" onclick="blowCandle()">Tiup Lilin 🕯️</button>
+<div id="surprise">🎉 WOOHOO! Semoga semua wish bebeb Sarah jadi kenyataan! ✨💕</div>
+<button id="nextBtn" class="btn hidden" onclick="showScreen(4)">Ke Penutup 💖</button>
+</section>
+
+<section id="screen4" class="screen">
+<h1>Untuk Bebeb Sarah 💕</h1>
+<p>Semoga umur panjang, sihat selalu, makin comel je tiap tahun, dan bahagia selalu. Love you, bebeb! 🎂✨</p>
+<div style="font-size:3rem;margin-top:20px">🎂 🎈 🌷 💖 ✨</div>
+</section>
+
+<script>
+const music=document.getElementById('bg-music');
+const musicBtn=document.getElementById('musicBtn');
+
+function showScreen(id){
+document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+document.getElementById('screen'+id).classList.add('active');
+}
+
+function goHero(){
+showScreen(1);
+musicBtn.style.display='block';
+music.play().catch(()=>{});
+}
+
+musicBtn.onclick=()=>{
+if(music.paused){music.play();musicBtn.textContent='🎵';}
+else{music.pause();musicBtn.textContent='🔇';}
+};
+
+function blowCandle(){
+document.getElementById('flame').style.opacity='0';
+document.getElementById('surprise').style.opacity='1';
+document.getElementById('nextBtn').classList.remove('hidden');
+confetti();
+}
+
+function confetti(){
+const colors=['#ff4f9a','#ffd93d','#8b5cf6','#60a5fa','#4ade80'];
+for(let i=0;i<150;i++){
+let c=document.createElement('div');
+c.className='confetti';
+c.style.left=Math.random()*100+'vw';
+c.style.background=colors[Math.floor(Math.random()*colors.length)];
+c.style.animationDuration=(2+Math.random()*2)+'s';
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),4000);
+}
+}
+</script>
+
+</body>
+</html>
